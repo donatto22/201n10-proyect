@@ -1,0 +1,44 @@
+#productsList {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.product {
+    display: flex;
+    width: 300px;
+    gap: 1em;
+
+    /* productDescription */
+    >div {
+        width: 100%;
+
+        button {
+            padding: 6px 10px;
+            background-color: transparent;
+            border: 0;
+            outline: 1px solid rgb(100, 84, 0);
+            color: rgb(120, 100, 0);
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background-color .1s, color .1s;
+        }
+
+        button:hover {
+            background-color: rgb(100, 84, 0);
+            color: rgb(233, 215, 130);
+        }
+    }
+}
+
+.productImage {
+    width: 100px;
+    object-fit: contain;
+}
+
+.productCategory {
+    background-color: rgb(252, 234, 191);
+    color: rgb(171, 120, 0);
+    width: fit-content;
+    padding: 4px 8px;
+    border-radius: 6px;
+}
