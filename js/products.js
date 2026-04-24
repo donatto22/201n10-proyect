@@ -23,8 +23,9 @@ const createProduct = (product) => {
     // descripción del producto
     const productDescription = document.createElement('div')
 
-    const name = document.createElement('p')
+    const name = document.createElement('a')
     name.textContent = product.title
+    name.href = `./pages/singleProduct.html?id=${product.id}`
 
     const category = document.createElement('div')
     category.classList.add('productCategory')
