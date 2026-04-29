@@ -58,8 +58,16 @@ renderSingleProduct()
 // Las reseñas son un bloque que contiene el correo
 // del usuario, y el comentario
 
+
 // Laboratorio 15
 // Debe de exitir un contador que muestra
 // la cantidad exacta de productos que se tienen en el carrito
 // cuando se agregue uno, se elimine, o se vacíen todos
 // el carrito debe de actualizarse
+
+// EXTRA
+// -------
+// { ...producto, cantidad: 1 }
+// Si el producto ya existe, no debería agregarse otro en el localStorage
+// Si no, que cantidad debe de acumularse en +1
+// Al eliminar, reducirse en -1
