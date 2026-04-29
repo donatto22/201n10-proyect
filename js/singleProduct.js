@@ -57,3 +57,9 @@ renderSingleProduct()
 // Agrgegar las reseñas.
 // Las reseñas son un bloque que contiene el correo
 // del usuario, y el comentario
+
+// Laboratorio 15
+// Debe de exitir un contador que muestra
+// la cantidad exacta de productos que se tienen en el carrito
+// cuando se agregue uno, se elimine, o se vacíen todos
+// el carrito debe de actualizarse

@@ -1,3 +1,5 @@
+import { addProductToLocalStorage } from './carrito.js'
+
 const API = 'https://dummyjson.com/products'
 
 // obteniendo los productos
@@ -36,6 +38,8 @@ const createProduct = (product) => {
 
     const addToCartButton = document.createElement('button')
     addToCartButton.textContent = 'Añadir al carrito'
+
+    addToCartButton.addEventListener('click', () => addProductToLocalStorage(product))
 
     // agregandop la descripción
     productDescription.appendChild(name)
