@@ -23,6 +23,31 @@ export const addProductToLocalStorage = (product) => {
     localStorage.setItem('productos', JSON.stringify(productos))
 }
 
+const removeProductFromLocalStorage = (product) => {
+    const productosAlmacenados = localStorage.getItem('productos')
+
+    let productos = []
+
+    if (productosAlmacenados) {
+        productos = JSON.parse(productosAlmacenados)
+    } else {
+        productos = []
+    }
+
+    // buscar si el producto que vamos a agregar ya existe
+    const productoExistente = productos.find(p => p.product.id == product.id)
+
+    if (productoExistente) {
+        if (productoExistente.cantidad > 1) {
+            productoExistente.cantidad -= 1
+        } else {
+            productos.splice(productos.indexOf(productoExistente), 1)
+        }
+    }
+
+    localStorage.setItem('productos', JSON.stringify(productos))
+}
+
 const renderProductsFromLocalStorage = () => {
     const productoscarrito = document.querySelector('#productosCarrito')
 
@@ -49,6 +74,17 @@ const renderProductsFromLocalStorage = () => {
             renderProductsFromLocalStorage()
         })
 
+        // ----
+        const botonEliminar = document.createElement('button')
+        botonEliminar.textContent = '-'
+
+        botonEliminar.addEventListener('click', () => {
+            removeProductFromLocalStorage(objeto.product)
+
+            productoscarrito.textContent = ''
+            renderProductsFromLocalStorage()
+        })
+
         const eliminarBotton = document.createElement('button')
         eliminarBotton.textContent = 'Eliminar'
 
@@ -66,6 +102,7 @@ const renderProductsFromLocalStorage = () => {
         bloque.appendChild(titulo)
         bloque.appendChild(cantidad)
         bloque.appendChild(botonAgregar)
+        bloque.appendChild(botonEliminar)
         bloque.appendChild(eliminarBotton)
 
         productoscarrito.appendChild(bloque)
