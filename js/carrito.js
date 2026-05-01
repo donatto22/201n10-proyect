@@ -1,35 +1,24 @@
 let productos = []
 
-// export const addProductToLocalStorage = (product) => {
-//     if (localStorage.getItem('productos')) {
-//         productos = JSON.parse(localStorage.getItem('productos'))
-//     }
-
-//     if (productos.length > 0) {
-//         productos.forEach(p => {
-//             if (p.product.id == product.id) {
-//                 p.cantidad += 1
-//             } else {
-//                 const objeto = {
-//                     product, cantidad: 1
-//                 }
-
-//                 productos.push(objeto)
-//             }
-//         })
-//     } else {
-//         const objeto = {
-//             product, cantidad: 1
-//         }
-
-//         productos.push(objeto)
-//     }
-
-//     localStorage.setItem('productos', JSON.stringify(productos))
-// }
-
 export const addProductToLocalStorage = (product) => {
-    productos.push(product)
+    const productosAlmacenados = localStorage.getItem('productos')
+
+    let productos = []
+
+    if (productosAlmacenados) {
+        productos = JSON.parse(productosAlmacenados)
+    } else {
+        productos = []
+    }
+
+    // buscar si el producto que vamos a agregar ya existe
+    const productoExistente = productos.find(p => p.product.id == product.id)
+
+    if (productoExistente) {
+        productoExistente.cantidad += 1
+    } else {
+        productos.push({ product, cantidad: 1 })
+    }
 
     localStorage.setItem('productos', JSON.stringify(productos))
 }
@@ -43,9 +32,22 @@ const renderProductsFromLocalStorage = () => {
 
     const productos = JSON.parse(localStorage.getItem('productos'))
 
-    productos.forEach((product, index) => {
+    productos.forEach((objeto, index) => {
         const titulo = document.createElement('h3')
-        titulo.textContent = product.title
+        titulo.textContent = objeto.product.title
+
+        const cantidad = document.createElement('p')
+        cantidad.textContent = `Cantidad: ${objeto.cantidad}`
+
+        const botonAgregar = document.createElement('button')
+        botonAgregar.textContent = '+'
+
+        botonAgregar.addEventListener('click', () => {
+            addProductToLocalStorage(objeto.product)
+
+            productoscarrito.textContent = ''
+            renderProductsFromLocalStorage()
+        })
 
         const eliminarBotton = document.createElement('button')
         eliminarBotton.textContent = 'Eliminar'
@@ -62,6 +64,8 @@ const renderProductsFromLocalStorage = () => {
         const bloque = document.createElement('div')
 
         bloque.appendChild(titulo)
+        bloque.appendChild(cantidad)
+        bloque.appendChild(botonAgregar)
         bloque.appendChild(eliminarBotton)
 
         productoscarrito.appendChild(bloque)
@@ -69,3 +73,7 @@ const renderProductsFromLocalStorage = () => {
 }
 
 renderProductsFromLocalStorage()
+
+// Laboratorio 16
+// Agregar el precio total del producto a cada producto
+// Agregar una suma total
